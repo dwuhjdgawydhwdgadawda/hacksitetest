@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Script Executor</title>
+</head>
+<body>
+    <h2>Execute Script in Roblox</h2>
+    <textarea id="scriptBox" placeholder="Enter your Lua script here..."></textarea><br>
+    <input type="text" id="username" placeholder="Enter your Roblox username"><br>
+    <button onclick="executeScript()">Execute</button>
+
+    <script>
+        function executeScript() {
+            const script = document.getElementById("scriptBox").value;
+            const username = document.getElementById("username").value;
+
+            // Send data to the server
+            fetch('https://your-api-url.com/execute', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ script: script, username: username })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Script executed successfully');
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

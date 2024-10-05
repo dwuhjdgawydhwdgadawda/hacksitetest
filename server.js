@@ -1,25 +1,25 @@
 const express = require('express');
-const axios = require('axios');
+const cors = require('cors');
 const app = express();
+
+app.use(cors());
 app.use(express.json());
 
-const ROBLOX_GAME_URL = 'https://www.roblox.com/games/130592754471804/Untitled-Game/execute'; // This is just a placeholder; adjust as needed
-
-app.post('/execute', async (req, res) => {
+app.post('/execute', (req, res) => {
     const { script, username } = req.body;
 
-    // Forward the request to the Roblox game server
-    try {
-        const response = await axios.post(ROBLOX_GAME_URL, {
-            script: script,
-            username: username
-        });
-        res.json(response.data); // Send back the response from Roblox
-    } catch (error) {
-        res.status(500).json({ success: false, message: 'Failed to communicate with Roblox' });
+    // Logic to handle script execution
+    // For example, check if the user is valid and execute the script
+    if (username) {
+        // Simulating script execution
+        res.json({ success: true, message: 'Script executed successfully.' });
+    } else {
+        res.status(400).json({ success: false, message: 'Invalid username.' });
     }
 });
 
-app.listen(3000, () => {
-    console.log('Server is running on port 3000');
+// Listen on a specific port
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
